@@ -34,5 +34,9 @@
     "undici": "5.22.1",
     "vite": "4.4.0",
     "vite-tsconfig-paths": "4.2.0"
+  },
+  "dependencies": {
+    "@huggingface/inference": "^1.5.1",
+    "langchain": "^0.0.104"
   }
 }

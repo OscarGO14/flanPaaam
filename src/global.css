@@ -1,5 +1,3 @@
-
-
 /**
  * WHAT IS THIS FILE?
  *
@@ -7,6 +5,11 @@
  * the styles in here will be applied to the Document, without any sort of CSS scoping.
  *
  */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 html {
   -webkit-text-size-adjust: 100%;
   -moz-tab-size: 4;
@@ -15,9 +18,23 @@ html {
   font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
     "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif,
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  background-color: #444;
+  color: #fff;
 }
-
 body {
-  padding: 0;
-  line-height: inherit;
+  display: grid;
+  margin: 0 auto;
+}
+header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0;
+}
+.chat {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0;
 }
