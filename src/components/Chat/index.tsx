@@ -1,15 +1,17 @@
-import {
-  $,
-  component$,
-  useSignal,
-  useStore,
-  useVisibleTask$,
-} from "@builder.io/qwik";
+import { $, component$, useSignal, useStore, useTask$ } from "@builder.io/qwik";
 import { Form } from "@builder.io/qwik-city";
 // import { PromptTemplate } from "langchain";
 // import { LLMChain } from "langchain/chains";
 import { HuggingFaceInference } from "langchain/llms/hf";
 import { HUGGINGFACEHUB_API_KEY } from "~/constants";
+
+const model = new HuggingFaceInference({
+  // model: "declare-lab/flan-alpaca-large",
+  model: "google/flan-t5-xxl",
+  temperature: 0.1,
+  maxTokens: 64,
+  apiKey: HUGGINGFACEHUB_API_KEY,
+});
 
 export const Chat = component$(() => {
   // Create state for response
@@ -21,31 +23,15 @@ export const Chat = component$(() => {
   // 3. Crear base de datos vectorial
   // 4. Crear logica de promt para generar respuestas
 
-  // const userInput = "How are you doing?";
-  // const prompt = new PromptTemplate({
-  //   template: userInput,
-  //   inputVariables: ["product"],
-  // });
-
-  // const chain = new LLMChain({ llm: model, prompt: prompt });
-
   const getModelResponse = $(async () => {
-    const model = new HuggingFaceInference({
-      // model: "declare-lab/flan-alpaca-large",
-      model: "google/flan-t5-xxl",
-      temperature: 0.1,
-      maxTokens: 64,
-      apiKey: HUGGINGFACEHUB_API_KEY,
-    });
     const res = await model.call(input.value);
-    responses.push(res);
-    console.log(res);
+    responses.push(`${input.value} ? ${res}`);
   });
 
-  useVisibleTask$(({ track }) => {
-    track(() => responses);
-    debugger;
-    console.log({ responses });
+  useTask$(({ track }) => {
+    const newResponses = track(() => responses);
+    console.log({ newResponses });
+    input.value = "";
   });
 
   return (
@@ -53,7 +39,7 @@ export const Chat = component$(() => {
       <h2>CHAT</h2>
 
       <Form>
-        <input type="text" onBlur$={(e) => (input.value = e.target.value)} />
+        <input type="text" onChange$={(e) => (input.value = e.target.value)} />
         <button onClick$={getModelResponse}>Ask Flan</button>
       </Form>
       {responses.length > 0 &&
