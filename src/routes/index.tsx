@@ -1,14 +1,15 @@
 import { component$ } from "@builder.io/qwik";
 import type { DocumentHead } from "@builder.io/qwik-city";
-import { Chat } from "~/components/Chat";
+import { Chat, ChatWithDocs } from "~/components/Chat";
 
 export default component$(() => {
   return (
     <>
       <header>
-        <h1>🍮Flan Alpaca Chat 🦙</h1>
+        <h1>🍮 Flan Alpaca 🦙</h1>
       </header>
-      <Chat />
+      {/* <Chat /> */}
+      <ChatWithDocs />
     </>
   );
 });
