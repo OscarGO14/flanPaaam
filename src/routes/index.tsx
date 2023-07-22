@@ -6,7 +6,7 @@ export default component$(() => {
   return (
     <>
       <header>
-        <h1>🍮 Flan Alpaca 🦙</h1>
+        <h1>🍮 Flan Paaam 🍮</h1>
       </header>
       {/* <Chat /> */}
       <ChatWithDocs />
@@ -15,11 +15,12 @@ export default component$(() => {
 });
 
 export const head: DocumentHead = {
-  title: "Flan Alpaca Chat - Qwik",
+  title: "Flan Paaam Chat - Qwik",
   meta: [
     {
       name: "description",
-      content: "Qwik site to develop a chat app with Flan Alpaca",
+      content:
+        "Qwik site to develop a chat app with documentation ad model Flan-T5-XXL",
     },
   ],
 };

@@ -6,7 +6,9 @@ import { Document } from "langchain/document";
 import { HuggingFaceInference } from "langchain/llms/hf";
 import { HUGGINGFACEHUB_API_KEY } from "~/constants";
 
-// Open source model from HuggingFace
+/**
+ * Open source model from HuggingFace
+ */
 const model = new HuggingFaceInference({
   // model: "declare-lab/flan-alpaca-large",
   model: "google/flan-t5-xxl",
@@ -15,10 +17,14 @@ const model = new HuggingFaceInference({
   apiKey: HUGGINGFACEHUB_API_KEY,
 });
 
-// Chain to load the model and the documents
+/**
+ * Chain to load the model and the documents
+ */
 const chain = loadQAStuffChain(model);
 
-// Documents to use for the chat
+/**
+ * Documents to use for the chat
+ */
 const docs = [
   new Document({
     pageContent:
@@ -27,15 +33,11 @@ const docs = [
 ];
 
 /**
- * Chat component to interact directly with the model
+ * Basic Chat component to interact directly with the model
  */
 export const Chat = component$(() => {
-  const responses = useStore<Array<string>>(["Ask me something!"]);
+  const responses = useStore<Array<string>>(["Ask me anything!"]);
   const input = useSignal<string>("");
-  // TODO: Implement chat component
-  // 1. Importar y procesar archivos txt
-  // 2. Con un embedding de HuggingFace Vectorizar archivos txt
-  // 3. Crear base de datos vectorial
 
   const getModelResponse = $(async () => {
     if (input.value === "") return;
@@ -76,7 +78,9 @@ export const Chat = component$(() => {
  * Chat component to interact with de documentation provided
  */
 export const ChatWithDocs = component$(() => {
-  const responses = useStore<Array<string>>(["Ask me something!"]);
+  const responses = useStore<Array<string>>([
+    "Ask me something about your docs!",
+  ]);
   const input = useSignal<string>("");
   const loading = useSignal<boolean>(false);
 
@@ -122,7 +126,7 @@ export const ChatWithDocs = component$(() => {
           <input
             value={input.value}
             type="text"
-            onInput$={(ev, el) => (input.value = el.value)}
+            onInput$={(event, el) => (input.value = el.value)}
           />
           <button disabled={!input.value} onClick$={getChainResponse}>
             Ask
