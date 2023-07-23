@@ -1,6 +1,7 @@
 import { component$ } from "@builder.io/qwik";
 import type { DocumentHead } from "@builder.io/qwik-city";
 import { Chat, ChatWithDocs } from "~/components/Chat";
+import { Menu } from "~/components/Menu";
 
 export default component$(() => {
   return (
@@ -10,6 +11,7 @@ export default component$(() => {
       </header>
       {/* <Chat /> */}
       <ChatWithDocs />
+      <Menu />
     </>
   );
 });

@@ -75,11 +75,11 @@ export const Chat = component$(() => {
 });
 
 /**
- * Chat component to interact with de documentation provided
+ * Chat component to interact with de documentation provided. Basic Q&A. For larger data use Embeddings https://js.langchain.com/docs/use_cases/question_answering/
  */
 export const ChatWithDocs = component$(() => {
-  const responses = useStore<Array<string>>([
-    "Ask me something about your docs!",
+  const responses = useStore<Array<{ text: string; class: string }>>([
+    { class: "ia", text: "Ask me something about your docs!" },
   ]);
   const input = useSignal<string>("");
   const loading = useSignal<boolean>(false);
@@ -90,7 +90,7 @@ export const ChatWithDocs = component$(() => {
   const getChainResponse = $(async () => {
     if (input.value === "") return;
 
-    responses.push(input.value);
+    responses.push({ text: input.value, class: "user" });
     loading.value = true;
 
     const { text } = await chain.call({
@@ -99,7 +99,7 @@ export const ChatWithDocs = component$(() => {
     });
 
     loading.value = false;
-    responses.push(text);
+    responses.push({ text, class: "ia" });
     input.value = "";
   });
 
@@ -108,11 +108,8 @@ export const ChatWithDocs = component$(() => {
       <div class="chat__history">
         {responses.length > 0 &&
           responses.map((response, i) => (
-            <div
-              class={`chat__block ${i % 2 === 0 ? "ia" : "user"}`}
-              key={i + 1}
-            >
-              <p>{response}</p>
+            <div key={i + 1} class={`chat__block ${response.class}`}>
+              <p>{response.text}</p>
             </div>
           ))}
         {loading.value && (
