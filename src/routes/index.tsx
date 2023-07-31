@@ -1,6 +1,6 @@
 import { component$ } from "@builder.io/qwik";
 import type { DocumentHead } from "@builder.io/qwik-city";
-import { Chat, ChatWithDocs } from "~/components/Chat";
+import { Chat, ChatWithDocs, ChatWithEmbeddings } from "~/components/Chat";
 import { Menu } from "~/components/Menu";
 
 export default component$(() => {
@@ -10,7 +10,8 @@ export default component$(() => {
         <h1>🍮 Flan Paaam 🍮</h1>
       </header>
       {/* <Chat /> */}
-      <ChatWithDocs />
+      {/* <ChatWithDocs /> */}
+      <ChatWithEmbeddings />
       <Menu />
     </>
   );
